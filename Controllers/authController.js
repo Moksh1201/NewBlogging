@@ -1,41 +1,50 @@
-const fs = require('fs').promises;
+// controllers/authController.js
+const { readFile, writeFile } = require('../utils/fileUtils');
 const bcrypt = require('bcrypt');
-const { generateToken } = require('../utils/jwtUtils');
+const jwt = require('jsonwebtoken');
 const usersDataPath = './data/users.json';
 
-const register = async (req, res) => {
-    const { username, password, role } = req.body;
-    const hashedPassword = await bcrypt.hash(password, 10);
+const SECRET_PASSKEY = 'encien29eineu93ncNOXWniwdi3293X'; 
 
-    const users = JSON.parse(await fs.readFile(usersDataPath, 'utf-8'));
+const registerUser = async (req, res) => {
+    const { username, password, adminPasskey } = req.body;
 
-    if (users.find(user => user.username === username)) {
-        return res.status(400).json({ message: 'Username already exists' });
+    try {
+        const users = await readFile(usersDataPath);
+
+        if (users.some(user => user.username === username)) {
+            return res.status(400).json({ message: 'Username already exists' });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const isAdmin = adminPasskey === SECRET_PASSKEY;
+        
+        const newUser = {
+            id: Date.now(),
+            username,
+            password: hashedPassword,
+            isAdmin,
+            following: [],
+            followers: []
+        };
+
+        users.push(newUser);
+        await writeFile(usersDataPath, users);
+
+        res.status(201).json({ message: 'User registered successfully', user: { id: newUser.id, username: newUser.username, isAdmin: newUser.isAdmin } });
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to register user', error: error.message });
     }
-
-    const newUser = { id: users.length + 1, username, password: hashedPassword, role: role || 'user' };
-    users.push(newUser);
-
-    await fs.writeFile(usersDataPath, JSON.stringify(users));
-    res.status(201).json({ message: 'User registered successfully' });
 };
 
-const login = async (req, res) => {
-    const { username, password } = req.body;
-
-    const users = JSON.parse(await fs.readFile(usersDataPath, 'utf-8'));
-    const user = users.find(user => user.username === username);
-
-    if (!user || !(await bcrypt.compare(password, user.password))) {
-        return res.status(401).json({ message: 'Invalid credentials' });
+const fetchUsers = async (req, res) => {
+    try {
+        const users = await readFile(usersDataPath);
+        res.status(200).json(users.map(user => ({ id: user.id, username: user.username, isAdmin: user.isAdmin })));
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to fetch users', error: error.message });
     }
-
-    const token = generateToken(user);
-    res.status(200).json({ message: 'Logged in successfully', token });
 };
 
-const logout = (req, res) => {
-    res.status(200).json({ message: 'Logged out successfully' });
-};
-
-module.exports = { register, login, logout };
+module.exports = { registerUser, fetchUsers };
