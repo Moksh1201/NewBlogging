@@ -1,16 +1,11 @@
 const jwt = require('jsonwebtoken');
-const SECRET_KEY = process.env.JWT_SECRET || 'your-secret-key';
+const SECRET_KEY = 'fi3!m349Yb@#b76B9%$B7hbb77@WU*@';
 
-const generateToken = (user) => {
-    return jwt.sign({ id: user.id, role: user.role }, SECRET_KEY, { expiresIn: '1h' });
+const createToken = (user) => {
+    const payload = { id: user.id, isAdmin: user.isAdmin };
+    return jwt.sign(payload, SECRET_KEY, { expiresIn: '1h' });
 };
 
-const verifyToken = (token) => {
-    try {
-        return jwt.verify(token, SECRET_KEY);
-    } catch (error) {
-        return null;
-    }
-};
+const verifyToken = (token) => jwt.verify(token, SECRET_KEY);
 
-module.exports = { generateToken, verifyToken };
+module.exports = { createToken, verifyToken };
