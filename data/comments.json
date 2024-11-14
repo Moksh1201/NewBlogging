@@ -1,1 +1,9 @@
-[]
+[
+  {
+    "_id": "8f10adb9-5b3a-4aec-bd57-ce07282eee1b",
+    "postId": "a259977f-07fc-4141-8fac-d4654d308446",
+    "userId": "bbfc865a-05b5-4593-a7e7-b08a9b2a72bd",
+    "content": "This is a sample ",
+    "createdAt": "2024-11-14T03:58:40.086Z"
+  }
+]

@@ -1,1 +1,34 @@
-[]
+[
+  {
+    "id": "bbfc865a-05b5-4593-a7e7-b08a9b2a72bd",
+    "username": "john_doe",
+    "email": "john.doe@example.com",
+    "password": "$2b$10$8Nl2az8UvdvcyNxtaz7ZOO6UqItshnm4TLR4uOT9PTsRDM9KTIX5K",
+    "isAdmin": false,
+    "isPrivate": false
+  },
+  {
+    "id": "6b888f9e-72b6-4430-8a70-d50a59fdc454",
+    "username": "testuser12",
+    "email": "testuse12r@example.com",
+    "password": "$2b$10$fYJQda.HZ2wxHe/nd.xBFu611ocaiZhCDAeFXIHEc22oUtAA8qAca",
+    "isAdmin": false,
+    "isPrivate": false,
+    "followers": [
+      "01c6ba05-4eb9-43e0-b31f-96bd0a879221"
+    ],
+    "following": []
+  },
+  {
+    "id": "01c6ba05-4eb9-43e0-b31f-96bd0a879221",
+    "username": "testuser123",
+    "email": "testuse123r@example.com",
+    "password": "$2b$10$Z04fqQrGz8VR9xaiITGVRuFK7bpTsCT3eOLtUothngG9Z7SmKG7GC",
+    "isAdmin": false,
+    "isPrivate": true,
+    "followers": [],
+    "following": [
+      "6b888f9e-72b6-4430-8a70-d50a59fdc454"
+    ]
+  }
+]

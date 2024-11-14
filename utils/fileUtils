@@ -1,0 +1,29 @@
+const fs = require('fs').promises;
+const path = require('path');
+
+// Helper functions for reading and writing files
+async function readJSONFile(filePath) {
+    try {
+      const data = await fs.readFile(filePath, 'utf8');
+      console.log("Read data:", data); // Debugging statement
+      return JSON.parse(data);
+    } catch (err) {
+      console.error(`Failed to read file: ${filePath}`, err); // Log the error
+      throw new Error(`Failed to read file: ${filePath}`);
+    }
+  }
+  
+  async function writeJSONFile(filePath, data) {
+    try {
+      await fs.writeFile(filePath, JSON.stringify(data, null, 2), 'utf8');
+      console.log(`File written successfully: ${filePath}`); // Log success
+    } catch (err) {
+      console.error(`Failed to write file: ${filePath}`, err); // Log the error
+      throw new Error(`Failed to write file: ${filePath}`);
+    }
+  }
+
+module.exports = {
+  readJSONFile,
+  writeJSONFile
+};

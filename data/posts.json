@@ -1,1 +1,19 @@
-[]
+[
+  {
+    "_id": "d91a248f-c31d-4a53-a7b9-79b75fb6b666",
+    "content": "This is the content of the first post. Excited to share with everyone!",
+    "image": "image_url",
+    "title": "My First Post",
+    "tags": "Technology, JavaScript",
+    "updatedAt": "2024-11-13T21:54:58.669Z"
+  },
+  {
+    "_id": "a259977f-07fc-4141-8fac-d4654d308446",
+    "userId": "bbfc865a-05b5-4593-a7e7-b08a9b2a72bd",
+    "content": "This is the content of the first post. Excited to share with everyone!",
+    "image": "image_url",
+    "title": "My First Post",
+    "tags": "Technology, JavaScript",
+    "updatedAt": "2024-11-14T03:49:35.300Z"
+  }
+]
